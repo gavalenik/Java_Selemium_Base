@@ -1,42 +1,44 @@
 package Base;
 
-
 import org.openqa.selenium.*;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
-//import java.util.HashMap;
 import java.util.List;
-//import java.util.Map;
 
 public class Site_login {
 
-    WebDriver driver = new FirefoxDriver();
-    /*    private Map<String, Object> vars;
-    JavascriptExecutor js;
-
-
-    js = (JavascriptExecutor) driver;
-    vars = new HashMap<String, Object>();
-*/
     @Test
     public void login() {
+
+        System.out.println("Lets do IT");
+        //System.setProperty("webdriver.gecko.driver", "/media/gavalenik/ssd_data/Projects/geckodriver");
+        //WebDriver driver = new FirefoxDriver();
+        System.setProperty("webdriver.edge.driver", "/media/gavalenik/ssd_data/Projects/msedgedriver");
+        WebDriver driver = new EdgeDriver();
+
         driver.get("https://xn----btbthcge4aikr4i.xn--p1ai/");
-        driver.manage().window().setSize(new Dimension(1244, 1413));
         {
             List<WebElement> elements = driver.findElements(By.id("login-button"));
             assert(elements.size() > 0);
         }
         driver.findElement(By.id("login-button")).click();
-        driver.findElement(By.name("USER_LOGIN")).click();
-        driver.findElement(By.name("USER_LOGIN")).click();
-        driver.findElement(By.name("USER_PASSWORD")).click();
-        driver.findElement(By.name("USER_PASSWORD")).sendKeys("qwerty1234");
-        driver.findElement(By.name("Login")).click();
-        driver.findElement(By.cssSelector(".home_link")).click();
+        driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/div/form/input[4]")).sendKeys("Virtuhai");
+        driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/div/form/input[5]")).sendKeys("qwerty1234");
+        driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/div/form/div[4]/input")).click();
+        driver.findElement(By.xpath("/html/body/div[4]/div[1]/div/ul/li[1]/a/span")).click();
         {
             List<WebElement> elements = driver.findElements(By.linkText("Выйти"));
             assert(elements.size() > 0);
         }
+        driver.quit();
     }
+/*
+    @AfterTest
+    public void tearDown() {
+        driver.quit();
+    }
+*/
 }
